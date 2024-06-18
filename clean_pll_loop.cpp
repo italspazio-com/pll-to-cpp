@@ -116,7 +116,7 @@ int main()
             phase_estimate[i + 1] = K_0 * e_F[i];
         }
 
-        sin_out[i + 1] = sin(2 * M_PI * freq * (i + 1) / sample_rate + phase_estimate[i]);
+        sin_out[i + 1] = -sin(2 * M_PI * freq * (i + 1) / sample_rate + phase_estimate[i]);
         cos_out[i + 1] = cos(2 * M_PI * freq * (i + 1) / sample_rate + phase_estimate[i]);
         // }
         // cout << e_F[i] << endl;
