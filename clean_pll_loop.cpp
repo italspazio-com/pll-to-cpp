@@ -72,12 +72,12 @@ int main()
     phase_estimate[0] = phase_estimate[phase_estimate.size() - 1];
     sin_out[0] = sin_out[sin_out.size() - 1];
     cos_out[0] = cos_out[cos_out.size() - 1];
-    vector<float> e_D;
-    vector<float> e_F;
+    // vector<float> e_D; //Da capire se questa e e_F devono essere una variabile globale o no
+    // vector<float> e_F;
 
     for (int i = 0; i < sample_rate - 1; i++)
     {
-        cout << input_signal[i] << " ";
+        // cout << input_signal[i] << " ";
 
         // Phase Detector
         try
@@ -119,6 +119,7 @@ int main()
         sin_out[i + 1] = sin(2 * M_PI * freq * (i + 1) / sample_rate + phase_estimate[i]);
         cos_out[i + 1] = cos(2 * M_PI * freq * (i + 1) / sample_rate + phase_estimate[i]);
         // }
+        // cout << e_F[i] << endl;
     }
     createCSV();
 
@@ -129,6 +130,7 @@ void createCSV()
 {
     // file pointer
     std::fstream fout;
+    std::fstream fout2;
 
     // opens an existing csv file or creates a new file.
     fout.open("esportazione.csv", ios::out | ios::app);
@@ -138,4 +140,11 @@ void createCSV()
         fout << cos_out[i] << "," << input_signal[i] << "\n";
 
     fout.close();
+
+    fout2.open("esportazione2.csv", ios::out | ios::app);
+
+    for (int i = 0; i < e_F.size(); i++)
+        fout2 << e_F[i] << "\n";
+
+    fout2.close();
 }
