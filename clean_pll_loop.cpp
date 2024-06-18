@@ -9,18 +9,18 @@ const short int k = 1024;
 const short int sample_rate = 100;
 const short int freq = 10;
 
-vector<int> t; // int *t = new int[sample_rate];
+vector<int> t;
 
 const float K_p = 0.2667;
 const float K_i = 0.0178;
 const float K_0 = 1;
 
 float integrator_out = 0;
-vector<float> phase_estimate; // float *phase_estimate = new float[sample_rate];
-vector<float> e_D;            // float *e_D = new float[k];
-vector<float> e_F;            // float *e_F = new float[k];
-vector<float> sin_out;        // float *sin_out = new float[sample_rate];
-vector<float> cos_out;        // float *cos_out = new float[sample_rate];
+vector<float> phase_estimate;
+vector<float> e_D;
+vector<float> e_F;
+vector<float> sin_out;
+vector<float> cos_out;
 
 void arange()
 {
@@ -50,18 +50,12 @@ void init()
     ones();
 }
 
-// input_signal.append(np.cos(2*np.pi*freq*t /sample_rate  + np.pi ))
-
 int main()
 {
     init();
 
-    // for (int i : t)
-    //     cout << i << ' ';
-
     while (true)
     {
-        // double *input_signal = new double[k];
         vector<double> input_signal;
         for (int i = 0; i < sample_rate; i++)
             input_signal.push_back(cos((2 * M_PI * freq * t[i] / sample_rate + M_PI)));
@@ -77,14 +71,6 @@ int main()
             cout << input_signal[i];
 
             // Phase Detector
-            // try
-            // {
-            //     e_D.push_back(input_signal[i] * sin_out[i]);
-            // }
-            // catch (const std::exception &e)
-            // {
-            //     e_D.push_back(0);
-            // }
             try
             {
                 if (i < input_signal.size() && i < sin_out.size()) // Check if the input signal and sin out are minor than the index i
