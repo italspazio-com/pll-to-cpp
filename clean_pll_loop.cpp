@@ -64,7 +64,7 @@ int main()
         // double *input_signal = new double[k];
         vector<double> input_signal;
         for (int i = 0; i < sample_rate; i++)
-            input_signal.push_back(2 * M_PI * freq * t[i] / sample_rate + M_PI);
+            input_signal.push_back(cos((2 * M_PI * freq * t[i] / sample_rate + M_PI)));
 
         phase_estimate[0] = phase_estimate[phase_estimate.size() - 1];
         sin_out[0] = sin_out[sin_out.size() - 1];
@@ -105,15 +105,24 @@ int main()
             integrator_out += K_i * e_D[i];
             e_F.push_back(K_p * e_D[i] + integrator_out);
 
-            // NCO
             try
             {
-                phase_estimate[i + 1] = phase_estimate[i] + K_0 + e_F[i];
+                if (i < phase_estimate.size() && i < e_F.size()) // Check if the input signal and sin out are minor than the index i
+                {
+                    phase_estimate[i + 1] = phase_estimate[i] + K_0 + e_F[i];
+                }
+                else
+                {
+                    throw std::out_of_range("Index out of range");
+                }
             }
-            catch (const std::exception &e)
+            catch (const std::out_of_range &e)
             {
-                std::cerr << e.what() << '\n';
+                phase_estimate[i + 1] = K_0 * e_F[i];
             }
+
+            sin_out[i + 1] = sin(2 * M_PI * freq * (i + 1) / sample_rate + phase_estimate[i]);
+            cos_out[i + 1] = cos(2 * M_PI * freq * (i + 1) / sample_rate + phase_estimate[i]);
         }
     }
 
