@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <cmath>
 #include <vector>
 
@@ -21,6 +22,9 @@ vector<float> e_D;
 vector<float> e_F;
 vector<float> sin_out;
 vector<float> cos_out;
+vector<double> input_signal;
+
+void createCSV();
 
 void arange()
 {
@@ -54,9 +58,14 @@ int main()
 {
     init();
 
+    //*********************************
+    // DECOMENTERARE IL WHILE
+    // è stato commentato per provare la funzione di esportazione CSV
+    //*********************************
+
     // while (true)
     // {
-    vector<double> input_signal;
+    // vector<double> input_signal;
     for (int i = 0; i < sample_rate; i++)
         input_signal.push_back(cos((2 * M_PI * freq * t[i] / sample_rate + M_PI)));
 
@@ -111,38 +120,22 @@ int main()
         cos_out[i + 1] = cos(2 * M_PI * freq * (i + 1) / sample_rate + phase_estimate[i]);
         // }
     }
+    createCSV();
 
     return 0;
 }
 
-void create()
+void createCSV()
 {
     // file pointer
-    fstream fout;
+    std::fstream fout;
 
     // opens an existing csv file or creates a new file.
-    fout.open("reportcard.csv", ios::out | ios::app);
+    fout.open("esportazione.csv", ios::out | ios::app);
 
-    cout << "Enter the details of 5 students:"
-         << " roll name maths phy chem bio";
-    << endl;
+    fout << "cos, input_signal\n";
+    for (int i = 0; i < cos_out.size(); i++)
+        fout << cos_out[i] << "," << input_signal[i] << "\n";
 
-    int i, roll, phy, chem, math, bio;
-    string name;
-
-    // Read the input
-    for (i = 0; i < 5; i++)
-    {
-
-        cin >> roll >> name >> math >> phy >> chem >> bio;
-
-        // Insert the data to file
-        fout << roll << ", "
-             << name << ", "
-             << math << ", "
-             << phy << ", "
-             << chem << ", "
-             << bio
-             << "\n";
-    }
+    fout.close();
 }
