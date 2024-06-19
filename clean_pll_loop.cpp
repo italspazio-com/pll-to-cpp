@@ -140,7 +140,7 @@ void createCSV()
     std::fstream fout2;
 
     // opens an existing csv file or creates a new file.
-    fout.open("esportazione.csv", ios::out | ios::app);
+    fout.open("esportazione.csv", ios::out | ios::trunc);
 
     fout << "cos, input_signal\n";
     for (int i = 0; i < cos_out.size(); i++)
