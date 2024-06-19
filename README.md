@@ -1,6 +1,6 @@
 
 # PLL to CPP
-Nel file `clean_pll_loop_GNUPLOT.cpp` viene utilizzata una libreria esterna che permette l'utilizzo di GNUPlot su C++. [Libreria presa da questa repo.](/%20Libreria%20presa%20da%20https://github.com/martinruenz/gnuplot-cpp)
+Nel file `clean_pll_loop_GNUPLOT.cpp` viene utilizzata una libreria esterna che permette l'utilizzo di GNUPlot su C++. [Libreria presa da questa repo.](https://github.com/martinruenz/gnuplot-cpp)
 
 Altra libreria per utilizzare GNUPlot su C++ [visionabile qui,](http://stahlke.org/dan/gnuplot-iostream/)
 
