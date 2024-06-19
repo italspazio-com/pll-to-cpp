@@ -1,2 +1,0 @@
-set datafile separator ','
-plot "esportazione.csv" using 1  with lines, '' using 2 with lines
