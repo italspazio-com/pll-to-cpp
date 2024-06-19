@@ -7,5 +7,6 @@ plot "esportazione.csv" using 1  with lines lw 2, '' using 2 with lines lw 2
 ```
 
 Si può caricare lo script con 
-```load "plot_gnuplot.gp"
+```
+load "plot_gnuplot.gp"
 ```
