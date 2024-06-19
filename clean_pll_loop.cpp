@@ -59,10 +59,6 @@ int main()
 {
     init();
 
-    //*********************************
-    // DECOMENTERARE IL WHILE
-    // è stato commentato per provare la funzione di esportazione CSV
-    //*********************************
     int scelta = 1;
 
     while (scelta)
