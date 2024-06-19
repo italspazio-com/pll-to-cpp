@@ -55,7 +55,6 @@ vector<double> input_signal;
 
 void createCSV();
 void stampaVettore(vector<double> vettore);
-void initCSV();
 
 void arange()
 {
@@ -83,7 +82,6 @@ void init()
     arange();
     zeros();
     ones();
-    initCSV();
 }
 
 int main()
@@ -150,7 +148,7 @@ int main()
             cos_out[i + 1] = cos(2 * M_PI * freq * (i + 1) / sample_rate + phase_estimate[i]);
 
             // PROVA ANIMAZIONE CON GNUPLOT
-            std::cout << "Press Ctrl-C to quit (closing gnuplot window doesn't quit)." << std::endl;
+            cout << "Press Ctrl-C to quit (closing gnuplot window doesn't quit)." << endl;
 
             gp << "plot '-' binary" << gp.binFmt1d(cos_out, "array") << "with lines title 'cos_out', "
                << "'-' binary" << gp.binFmt1d(input_signal, "array") << "with lines title 'input_signal'\n";
@@ -160,49 +158,7 @@ int main()
             gp.flush();
             mysleep(50);
         }
-        // createCSV();
-
-        // cout << "Inserire 0 per terminare ciclo while: ";
-        // cin >> scelta;
     }
 
     return 0;
-}
-
-void stampaVettore(vector<double> vettore)
-{
-    cout << "Stampo il vettore: " << endl;
-    for (double i : vettore)
-        cout << i << endl;
-}
-
-// Questa funzione per inserire due colonne (vuote) cosa da farlo leggere allo script di GNULib
-void initCSV()
-{
-    fstream fout;
-    fout.open("esportazione.csv", ios::out | ios::trunc);
-    fout << "0,0" << endl;
-    fout.close();
-}
-
-void createCSV()
-{
-    // file pointer
-    fstream fout;
-    fstream fout2;
-
-    // opens an existing csv file or creates a new file.
-    fout.open("esportazione.csv", ios::out | ios::trunc);
-
-    for (int i = 0; i < cos_out.size(); i++)
-        fout << setprecision(32) << cos_out[i] << "," << input_signal[i] << "\n";
-
-    fout.close();
-
-    // fout2.open("esportazione_e_F.csv", ios::out | ios::app);
-
-    // for (int i = 0; i < e_F.size(); i++)
-    //     fout2 << e_F[i] << "\n";
-
-    // fout2.close();
 }
