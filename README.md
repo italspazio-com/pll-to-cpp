@@ -10,7 +10,7 @@ Su **windows** è probabile che bisogna installare la libreria *BOOST*
 
 ##  Pezzo di codice animato GNUPlot
 ```            // PROVA ANIMAZIONE CON GNUPLOT
-            std::cout << "Press Ctrl-C to quit (closing gnuplot window doesn't quit)." << std::endl;
+            cout << "Press Ctrl-C to quit (closing gnuplot window doesn't quit)." << endl;
 
             gp << "plot '-' binary" << gp.binFmt1d(cos_out, "array") << "with lines title 'cos_out', "
                << "'-' binary" << gp.binFmt1d(input_signal, "array") << "with lines title 'input_signal'\n";
