@@ -1,8 +1,25 @@
 
-# PLL to CPP
-Nel file `clean_pll_loop_GNUPLOT.cpp` viene utilizzata una libreria esterna che permette l'utilizzo di GNUPlot su C++. [Libreria presa da questa repo.](https://github.com/martinruenz/gnuplot-cpp)
 
-Altra libreria per utilizzare GNUPlot su C++ [visionabile qui,](http://stahlke.org/dan/gnuplot-iostream/)
+# PLL to CPP
+Nel file `clean_pll_loop_GNUPLOT_animated.cpp` viene utiizzata la libreria `gnuplot-iostream.h` [REPO gnuplot-iostream](https://github.com/dstahlke/gnuplot-iostream)
+
+Per compilare il file bisogna digitare `g++ nome_file.cpp -o main -lboost_iostreams -lboost_system -lboost_filesystem`
+
+### ATTENZIONE
+Su **windows** è probabile che bisogna installare la libreria *BOOST*
+
+##  Pezzo di codice animato GNUPlot
+```            // PROVA ANIMAZIONE CON GNUPLOT
+            std::cout << "Press Ctrl-C to quit (closing gnuplot window doesn't quit)." << std::endl;
+
+            gp << "plot '-' binary" << gp.binFmt1d(cos_out, "array") << "with lines title 'cos_out', "
+               << "'-' binary" << gp.binFmt1d(input_signal, "array") << "with lines title 'input_signal'\n";
+            gp.sendBinary1d(cos_out);
+            gp.sendBinary1d(input_signal);
+
+            gp.flush();
+            mysleep(50);
+```
 
 ## Plot creato con gnuplot
 ```set datafile separator ','
