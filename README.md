@@ -1,5 +1,5 @@
 # 📊 PLL to C++
-![video_demo](https://github.com/italspazio-com/pll-to-cpp/blob/main/demo.gif?raw=true)
+![video_demo](https://github.com/italspazio-com/pll-to-cpp/blob/main/demo.gif)
 
 Nel file `clean_pll_loop_GNUPLOT_animated.cpp` viene utiizzata la libreria `gnuplot-iostream.h` [REPO gnuplot-iostream](https://github.com/dstahlke/gnuplot-iostream)
 
