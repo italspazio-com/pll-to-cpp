@@ -3,7 +3,10 @@
 # PLL to CPP
 Nel file `clean_pll_loop_GNUPLOT_animated.cpp` viene utiizzata la libreria `gnuplot-iostream.h` [REPO gnuplot-iostream](https://github.com/dstahlke/gnuplot-iostream)
 
-Per compilare il file bisogna digitare `g++ nome_file.cpp -o main -lboost_iostreams -lboost_system -lboost_filesystem`
+Per compilare il file bisogna digitare 
+```
+g++ nome_file.cpp -o main -lboost_iostreams -lboost_system -lboost_filesystem
+```
 
 ### ATTENZIONE
 Su **windows** è probabile che bisogna installare la libreria *BOOST*
