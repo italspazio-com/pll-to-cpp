@@ -2,35 +2,6 @@
 #include <fstream>
 #include <cmath>
 #include <vector>
-#include <iomanip>
-#include "gnuplot-iostream.h"
-
-#include <chrono>
-#include <thread>
-
-#ifdef _WIN32
-#include <windows.h>
-inline void mysleep(unsigned millis)
-{
-    ::Sleep(millis);
-}
-#else
-#include <unistd.h>
-inline void mysleep(unsigned millis)
-{
-    ::usleep(millis * 1000);
-}
-#endif
-
-/*
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!
-!   Come usare GNUPlot su C++
-!   https://stackoverflow.com/questions/45696064/how-do-i-use-gnuplot-from-c
-!   http://stahlke.org/dan/gnuplot-iostream/
-!
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-*/
 
 using namespace std;
 
@@ -41,20 +12,20 @@ const short int freq = 10;
 
 vector<int> t;
 
-const double K_p = 0.2667;
-const double K_i = 0.0178;
-const double K_0 = 1;
+const float K_p = 0.2667;
+const float K_i = 0.0178;
+const float K_0 = 1;
 
-double integrator_out = 0;
-vector<double> phase_estimate;
-vector<double> e_D;
-vector<double> e_F;
-vector<double> sin_out;
-vector<double> cos_out;
+float integrator_out = 0;
+vector<float> phase_estimate;
+vector<float> e_D;
+vector<float> e_F;
+vector<float> sin_out;
+vector<float> cos_out;
 vector<double> input_signal;
 
 void createCSV();
-void stampaVettore(vector<double> vettore);
+void stampaVettore(vector<float> vettore);
 
 void arange()
 {
@@ -87,7 +58,7 @@ void init()
 int main()
 {
     init();
-    Gnuplot gp;
+
     int scelta = 1;
 
     while (scelta)
@@ -97,7 +68,7 @@ int main()
             input_signal.push_back(cos((2 * M_PI * freq * t[i] / sample_rate + M_PI)));
 
         phase_estimate[0] = phase_estimate[phase_estimate.size() - 1];
-        // cout << "PHASE STIMATE [0]" << phase_estimate[0] << endl;
+        cout << "PHASE STIMATE [0]" << phase_estimate[0] << endl;
         sin_out[0] = sin_out[sin_out.size() - 1];
         cos_out[0] = cos_out[cos_out.size() - 1];
         e_D.clear();
@@ -142,23 +113,45 @@ int main()
             catch (const std::out_of_range &e)
             {
                 phase_estimate[i + 1] = K_0 * e_F[i];
+                cout << "Calcolo il phase estimate nel catch: " << phase_estimate[i + 1] << endl;
             }
             // cout << "Pi: " << M_PI << " | freq:" << freq << " | (i + 1): " << (i + 1) << " | sample_rate: " << sample_rate << " | phase_estimate[" << i << "]: " << phase_estimate[i] << endl;
             sin_out[i + 1] = -sin(2 * M_PI * freq * (i + 1) / sample_rate + phase_estimate[i]);
             cos_out[i + 1] = cos(2 * M_PI * freq * (i + 1) / sample_rate + phase_estimate[i]);
-
-            // PROVA ANIMAZIONE CON GNUPLOT
-            cout << "Press Ctrl-C to quit (closing gnuplot window doesn't quit)." << endl;
-
-            gp << "plot '-' binary" << gp.binFmt1d(cos_out, "array") << "with lines lw 2 title 'cos_out', "
-               << "'-' binary" << gp.binFmt1d(input_signal, "array") << "with lines lw 2 title 'input_signal'\n";
-            gp.sendBinary1d(cos_out);
-            gp.sendBinary1d(input_signal);
-
-            gp.flush();
-            mysleep(50);
         }
+        cout << "Inserire 0 per terminare ciclo while: ";
+        cin >> scelta;
     }
-
+    createCSV();
     return 0;
+}
+
+void stampaVettore(vector<double> vettore)
+{
+    cout << "Stampo il vettore: " << endl;
+    for (float i : vettore)
+        cout << i << endl;
+}
+
+void createCSV()
+{
+    // file pointer
+    std::fstream fout;
+    std::fstream fout2;
+
+    // opens an existing csv file or creates a new file.
+    fout.open("esportazione.csv", ios::out | ios::trunc);
+
+    fout << "cos, input_signal\n";
+    for (int i = 0; i < cos_out.size(); i++)
+        fout << cos_out[i] << "," << input_signal[i] << "\n";
+
+    fout.close();
+
+    // fout2.open("esportazione_e_F.csv", ios::out | ios::app);
+
+    // for (int i = 0; i < e_F.size(); i++)
+    //     fout2 << e_F[i] << "\n";
+
+    // fout2.close();
 }
