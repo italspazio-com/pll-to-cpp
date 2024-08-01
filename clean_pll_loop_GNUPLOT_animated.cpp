@@ -150,8 +150,8 @@ int main()
             // PROVA ANIMAZIONE CON GNUPLOT
             cout << "Press Ctrl-C to quit (closing gnuplot window doesn't quit)." << endl;
 
-            gp << "plot '-' binary" << gp.binFmt1d(cos_out, "array") << "with lines title 'cos_out', "
-               << "'-' binary" << gp.binFmt1d(input_signal, "array") << "with lines title 'input_signal'\n";
+            gp << "plot '-' binary" << gp.binFmt1d(cos_out, "array") << "with lines lw 2 title 'cos_out', "
+               << "'-' binary" << gp.binFmt1d(input_signal, "array") << "with lines lw 2 title 'input_signal'\n";
             gp.sendBinary1d(cos_out);
             gp.sendBinary1d(input_signal);
 
