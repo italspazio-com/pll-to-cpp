@@ -1,7 +1,24 @@
 # 📊 PLL to C++
+![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white) ![Static Badge](https://img.shields.io/badge/Linux%20OS%20-%20Linux?style=flat&logo=linux&logoColor=heavenly&logoSize=big&color=black&link=https%3A%2F%2Fwww.linux.it%2F)
+
 ![video_demo](https://github.com/italspazio-com/pll-to-cpp/blob/main/demo.gif)
 
-Nel file `clean_pll_loop_GNUPLOT_animated.cpp` viene utiizzata la libreria `gnuplot-iostream.h` [REPO gnuplot-iostream](https://github.com/dstahlke/gnuplot-iostream)
+## Riguardo al codice
+Il file principale è `clean_pll_loop.cpp`, in cui viene utilizzata libreria `gnuplot-iostream.h` (_presente in questa repo_). Per maggiori informazioni sulla libreria usata visitare [questo link](https://github.com/dstahlke/gnuplot-iostream)
+
+### Creato con
+- C++
+- [GNUplot](http://www.gnuplot.info/)
+- [GNUPlot-iostream](https://stahlke.org/dan/gnuplot-iostream/)
+
+## Installazione e Setup
+Il seguente codice è stato testato su Linux in particolare sulla distro ZorinOS, di conseguenza non sono conoscenza dei possibili problemi su Windows o altri OS. Per qualsiasi informazioni contattare @angelof-exe. 
+
+### Prerequisiti
+1) Installare libreria _BOOST_ necessaria per eseguire il codice, su **Linux** bastera eseguire il seguente codice sul terminale `sudo apt install libboost-all-dev`. Su **Windows** bisognerà scaricare la libreria direttamente [dal sito ufficiale](https://www.boost.org/users/download/)
+2. Clonare la seguente repo  `git clone https://github.com/italspazio-com/pll-to-cpp.git`
+3. Se si vuole vedere direttamente il grafico eseguire il comando `./main`, altrimenti se si vogliono
+
 
 Per compilare il file bisogna digitare 
 ```
