@@ -32,6 +32,9 @@ jobs:
         if [ -f build/main ]; then mv build/main .; fi
         if [ -f build/main.exe ]; then mv build/main.exe .; fi
 
+    - name: Make executable
+      run: chmod +x main
+
     - name: Run tests
       run: ctest --test-dir build
 
