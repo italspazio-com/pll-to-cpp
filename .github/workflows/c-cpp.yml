@@ -27,9 +27,21 @@ jobs:
     - name: Build the project
       run: cmake --build build
 
+    - name: Move executable to root directory
+      run: |
+        if [ -f build/main ]; then mv build/main .; fi
+        if [ -f build/main.exe ]; then mv build/main.exe .; fi
+
     - name: Run tests
       run: ctest --test-dir build
 
+    - name: Upload executable
+      uses: actions/upload-artifact@v3
+      with:
+        name: main
+        path: |
+          main
+          main.exe
+
     - name: Clean up
-      run: |
-        rm -rf build
+      run: rm -rf build
