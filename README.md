@@ -11,7 +11,7 @@
 - [Codice che anima il grafico](#pezzo-di-codice-animato-GNUPlot)
 
 ## Riguardo al codice
-Il file principale è `clean_pll_loop.cpp`, in cui viene utilizzata libreria `gnuplot-iostream.h` (_presente in questa repo_). Per maggiori informazioni sulla libreria usata visitare [questo link](https://github.com/dstahlke/gnuplot-iostream)
+Il file principale è `clean_pll_loop.cpp`, in cui viene utilizzata la libreria `gnuplot-iostream.h` (_presente in questa repo_). Per maggiori informazioni sulla libreria usata visitare [questo link](https://github.com/dstahlke/gnuplot-iostream)
 
 ### Creato con
 - C++
