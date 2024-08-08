@@ -7,6 +7,7 @@
 
 #include <chrono>
 #include <thread>
+using namespace std;
 
 #ifdef _WIN32
 #include <windows.h>
@@ -32,8 +33,6 @@ inline void mysleep(unsigned millis)
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 */
 
-using namespace std;
-
 const short int k = 1024;
 
 const short int sample_rate = 100;
@@ -52,9 +51,6 @@ vector<double> e_F;
 vector<double> sin_out;
 vector<double> cos_out;
 vector<double> input_signal;
-
-void createCSV();
-void stampaVettore(vector<double> vettore);
 
 void arange()
 {
@@ -87,17 +83,18 @@ void init()
 int main()
 {
     init();
-    Gnuplot gp;
-    int scelta = 1;
+    Gnuplot gp;     // Creo un oggetto Gnuplot
+    int scelta = 1; // Variabile per la scelta dell'utente
 
     while (scelta)
     {
         input_signal.clear();
+
         for (int i = 0; i < sample_rate; i++)
             input_signal.push_back(cos((2 * M_PI * freq * t[i] / sample_rate + M_PI)));
 
         phase_estimate[0] = phase_estimate[phase_estimate.size() - 1];
-        // cout << "PHASE STIMATE [0]" << phase_estimate[0] << endl;
+
         sin_out[0] = sin_out[sin_out.size() - 1];
         cos_out[0] = cos_out[cos_out.size() - 1];
         e_D.clear();
@@ -105,7 +102,6 @@ int main()
 
         for (int i = 0; i < sample_rate - 1; i++)
         {
-            // cout << input_signal[i] << " ";
 
             // Phase Detector
             try
@@ -147,9 +143,10 @@ int main()
             sin_out[i + 1] = -sin(2 * M_PI * freq * (i + 1) / sample_rate + phase_estimate[i]);
             cos_out[i + 1] = cos(2 * M_PI * freq * (i + 1) / sample_rate + phase_estimate[i]);
 
-            // PROVA ANIMAZIONE CON GNUPLOT
+            // Animazione con Gnuplot
             cout << "Press Ctrl-C to quit (closing gnuplot window doesn't quit)." << endl;
 
+            // Send data to gnuplot
             gp << "plot '-' binary" << gp.binFmt1d(cos_out, "array") << "with lines lw 5 title 'cos_out', "
                << "'-' binary" << gp.binFmt1d(input_signal, "array") << "with lines lw 5 title 'input_signal'\n";
             gp.sendBinary1d(cos_out);
