@@ -5,13 +5,26 @@
 
 ## Indice
 - [Riguardo al Codice](#riguardo-al-codice)
+    - [Panoramica](#panoramica)
+    - [Funzionalità del Codice](#funzionalità-del-codice)
     - [Creato con](#creato-con)
 - [Installazione e Setup](#installazione-e-setup)
     - [Prerequisiti e Installazione](#prerequisiti-e-installazione)
-- [Codice che anima il grafico](#pezzo-di-codice-animato-GNUPlot)
+- [Codice che anima il grafico](#codice-che-anima-il-grafico)
 
 ## Riguardo al codice
-Il file principale è `clean_pll_loop.cpp`, in cui viene utilizzata la libreria `gnuplot-iostream.h` (_presente in questa repo_). Per maggiori informazioni sulla libreria usata visitare [questo link](https://github.com/dstahlke/gnuplot-iostream)
+
+### Panoramica
+Il progetto è un esempio di un PLL (Phase-Locked Loop) implementato in C++. Un PLL è un circuito elettronico che può essere usato per sincronizzare un'onda a una frequenza di riferimento. Questo esempio utilizza un PLL semplice per mostrare come le varie componenti di un PLL lavorano insieme, visualizzando il risultato tramite GNUplot.
+
+Il file principale del progetto è `clean_pll_loop.cpp`. In questo file viene utilizzata la libreria `gnuplot-iostream.h` per creare e aggiornare i grafici dinamicamente. Le componenti principali del PLL sono il rivelatore di fase, il filtro del loop e l'oscillatore controllato in tensione.
+
+### Funzionalità del Codice
+- **Generazione del Segnale di Input:** Viene creato un segnale coseno con una frequenza definita.
+- **Rivelatore di Fase:** Calcola la differenza di fase tra il segnale di input e il segnale sinusoidale generato.
+- **Filtro del Loop:** Applica un filtro proporzionale-integrativo per regolare l'uscita del PLL.
+- **Aggiornamento della Fase e dei Segnali:** Aggiorna le stime di fase e i segnali sinusoidali e cosenoidi basati sulla fase stimata.
+- **Visualizzazione con GNUplot:** Mostra in tempo reale i segnali generati e il segnale di input utilizzando GNUplot.
 
 ### Creato con
 - C++
@@ -19,26 +32,44 @@ Il file principale è `clean_pll_loop.cpp`, in cui viene utilizzata la libreria 
 - [GNUPlot-iostream](https://stahlke.org/dan/gnuplot-iostream/)
 
 ## Installazione e Setup
-Il seguente codice è stato testato su Linux in particolare sulla distro ZorinOS, di conseguenza non sono conoscenza dei possibili problemi su Windows o altri OS. Per qualsiasi informazioni contattare @angelof-exe. 
+Il codice è stato testato principalmente su Linux (ZorinOS). Potrebbero esserci delle differenze nell'esecuzione su Windows o altri sistemi operativi.
 
 ### Prerequisiti e Installazione
-1) Installare libreria _BOOST_ necessaria per eseguire il codice, su **Linux** bastera eseguire il seguente codice sul terminale `sudo apt install libboost-all-dev`. Su **Windows** bisognerà scaricare la libreria direttamente [dal sito ufficiale](https://www.boost.org/users/download/)
-2. Clonare la seguente repo  `git clone https://github.com/italspazio-com/pll-to-cpp.git`
-3. Se si vuole vedere direttamente il grafico eseguire il comando sul terminale `./main`, altrimenti se si vogliono apportare modifiche al codice bisognerà poi compilarlo con il seguente codice
-```
-g++ clean_pll_loop.cpp -o main -lboost_iostreams -lboost_system -lboost_filesystem
-```
+1. **Installare la libreria Boost**: Necessaria per eseguire il codice. Su **Linux**, puoi installarla con il comando:
+   ```bash
+   sudo apt install libboost-all-dev
+   ```
+   Su **Windows**, scarica la libreria direttamente dal [sito ufficiale di Boost](https://www.boost.org/users/download/).
 
+2. **Clonare il repository**:
+   ```bash
+   git clone https://github.com/italspazio-com/pll-to-cpp.git
+   ```
 
-##  Pezzo di codice animato GNUPlot
-```            
+3. **Compilare il codice**:
+   Per eseguire direttamente il programma e vedere il grafico, usa:
+   ```bash
+   ./main
+   ```
+   Per apportare modifiche al codice e poi compilarlo, usa:
+   ```bash
+   g++ clean_pll_loop.cpp -o main -lboost_iostreams -lboost_system -lboost_filesystem
+   ```
+
+## Codice che anima il grafico
+Il codice seguente è responsabile per l'aggiornamento dinamico del grafico tramite GNUplot:
+
+```cpp
 cout << "Press Ctrl-C to quit (closing gnuplot window doesn't quit)." << endl;
 
+// Invia i dati a gnuplot
 gp << "plot '-' binary" << gp.binFmt1d(cos_out, "array") << "with lines lw 5 title 'cos_out', "
-               << "'-' binary" << gp.binFmt1d(input_signal, "array") << "with lines lw 5 title 'input_signal'\n";
+   << "'-' binary" << gp.binFmt1d(input_signal, "array") << "with lines lw 5 title 'input_signal'\n";
 gp.sendBinary1d(cos_out);
 gp.sendBinary1d(input_signal);
 
+// Pulisce e aggiorna il grafico
 gp.flush();
 mysleep(50);
 ```
+Questo frammento di codice invia i dati dei segnali coseno e del segnale di input a GNUplot e aggiorna il grafico ogni 50 millisecondi. Il comando `gp.flush()` è utilizzato per assicurarsi che tutte le modifiche vengano applicate al grafico.
