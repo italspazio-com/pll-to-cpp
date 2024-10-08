@@ -1,5 +1,7 @@
-![logo](https://raw.githubusercontent.com/italspazio-com/pll-to-cpp/refs/heads/main/logo/logo.png)
 ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white) ![Static Badge](https://img.shields.io/badge/Linux%20OS%20-%20Linux?style=flat&logo=linux&logoColor=heavenly&logoSize=big&color=black&link=https%3A%2F%2Fwww.linux.it%2F)
+
+![logo](https://raw.githubusercontent.com/italspazio-com/pll-to-cpp/refs/heads/main/logo/logo.png)
+
 
 ![video_demo](https://github.com/italspazio-com/pll-to-cpp/blob/main/demo.gif)
 
